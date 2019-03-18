@@ -14,7 +14,7 @@ namespace CSVTools
         private List<Row> _rows = new List<Row>();
 
         /// <summary>
-        /// The dimensions of the table
+        /// The dimensions of the table [width, height]
         /// </summary>
         public int[] Dimensions
         {
@@ -79,12 +79,9 @@ namespace CSVTools
         /// <param name="y">Row number</param>
         public void InsertItem(object data, int x, int y)
         {
-            Row targetRow;
-            try
-            {
-                targetRow = _rows.Find(row => row.Position == y);
-            }
-            catch (ArgumentNullException)
+            Row targetRow = _rows.Find(row => row.Position == y);
+
+            if (targetRow == null)
             {
                 targetRow = new Row(y);
                 _rows.Add(targetRow);
@@ -101,14 +98,10 @@ namespace CSVTools
         public void InsertRow(IEnumerable<object> data, int y)
         {
             // Delete the y row if it already exists
-            try
+            int oldRow = _rows.FindIndex(row => row.Position == y);
+            if (oldRow != -1)
             {
-                int oldRow = _rows.FindIndex(row => row.Position == y);
                 _rows.RemoveAt(oldRow);
-            }
-            catch (ArgumentNullException)
-            {
-                // No row with that y pos exists, no need to do anything
             }
             
             // Create new row
