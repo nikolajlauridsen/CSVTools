@@ -19,7 +19,7 @@ namespace CSVTools
             ColumnDelimiter = columnDelimiter;
         }
 
-        public void InsertData(object data, int x, int y)
+        public void InsertItem(object data, int x, int y)
         {
             Row targetRow;
             try
@@ -33,6 +33,23 @@ namespace CSVTools
             }
 
             targetRow.Insert(data, x);
+        }
+
+        public void InsertRow(IEnumerable<object> data, int y)
+        {
+            // Delete the y row if it already exists
+            try
+            {
+                int oldRow = _rows.FindIndex(row => row.Position == y);
+                _rows.RemoveAt(oldRow);
+            }
+            catch (ArgumentNullException)
+            {
+                // No row with that y pos exists, no need to do anything
+            }
+            
+            // Create new row
+            _rows.Add(new Row(data, y));
         }
     }
 }

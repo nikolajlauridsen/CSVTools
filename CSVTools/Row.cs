@@ -37,6 +37,18 @@ namespace CSVTools
             Position = pos;
         }
 
+        internal Row(IEnumerable<object> data, int pos)
+        {
+            Position = pos;
+
+            int i = 0;
+            foreach (object item in data)
+            {
+                Insert(item, i);
+                i++;
+            }
+        }
+
         /// <summary>
         /// Insert an object into the cell at the x position of the column.
         /// Overwrites the data in the cell if it already exists
@@ -56,6 +68,11 @@ namespace CSVTools
             }
         }
 
+        /// <summary>
+        /// Retrieve the stored item at the given location
+        /// </summary>
+        /// <param name="pos">Potion in row to retrieve from</param>
+        /// <returns></returns>
         public object ItemAt(int pos)
         {
             try
@@ -67,6 +84,8 @@ namespace CSVTools
                 return null;
             }
         }
+
+
 
     }
 }
