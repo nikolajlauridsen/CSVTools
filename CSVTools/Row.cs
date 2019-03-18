@@ -32,6 +32,11 @@ namespace CSVTools
         }
         private List<Cell> _row = new List<Cell>();
 
+        internal Row(int pos)
+        {
+            Position = pos;
+        }
+
         /// <summary>
         /// Insert an object into the cell at the x position of the column.
         /// Overwrites the data in the cell if it already exists
@@ -48,6 +53,18 @@ namespace CSVTools
             catch (ArgumentNullException)
             {
                 Cells.Add(new Cell(data, x));
+            }
+        }
+
+        public object ItemAt(int pos)
+        {
+            try
+            {
+                return _row.Find(cell => cell.Position == pos).GetData();
+            }
+            catch (ArgumentNullException)
+            {
+                return null;
             }
         }
 
