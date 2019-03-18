@@ -23,12 +23,12 @@ namespace CSVTools
         /// </summary>
         public List<Cell> Cells{
             get{
-                List<Cell> returnList = new List<Cell>(_row);
+                List<Cell> returnList = new List<Cell>(_cells);
                 returnList.Sort();
                 return returnList;
             }
         }
-        private List<Cell> _row = new List<Cell>();
+        private List<Cell> _cells = new List<Cell>();
 
         internal Row(int pos){
             Position = pos;
@@ -51,13 +51,13 @@ namespace CSVTools
         /// <param name="data">Data to be inserted</param>
         /// <param name="x">The x position of the cell within the row</param>
         public void Insert(object data, int x){
-            Cell targetCell = _row.Find(cell => cell.Position == x);
+            Cell targetCell = _cells.Find(cell => cell.Position == x);
 
             if(targetCell != null){
                 targetCell.SetData(data);
             }
             else {
-                _row.Add(new Cell(data, x));
+                _cells.Add(new Cell(data, x));
             }
 
         }
@@ -68,7 +68,7 @@ namespace CSVTools
         /// <param name="pos">Potion in row to retrieve from</param>
         /// <returns></returns>
         public object ItemAt(int pos){
-            return _row.Find(cell => cell.Position == pos).GetData();
+            return _cells.Find(cell => cell.Position == pos).GetData();
         }
 
 

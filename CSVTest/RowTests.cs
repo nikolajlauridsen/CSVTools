@@ -25,7 +25,6 @@ namespace CSVTest
             Assert.AreEqual(r1.ItemAt(0), "Hello");
             Assert.AreEqual(r1.ItemAt(1), "World");
             Assert.AreEqual(r1.ItemAt(2), "!");
-
         }
     }
 }
