@@ -13,13 +13,13 @@ namespace CSVTools
         public char ColumnDelimiter;
         private List<Row> _rows = new List<Row>();
 
-        public Table(char rowDelimiter = ';', char columnDelimiter = '\n')
+        public Table(char columnDelimiter = ';', char rowDelimiter = '\n')
         {
             RowDelimiter = rowDelimiter;
             ColumnDelimiter = columnDelimiter;
         }
 
-        public Table(IEnumerable<IEnumerable<object>> data, char rowDelimiter = ';', char columnDelimiter = '\n') : this(rowDelimiter, columnDelimiter)
+        public Table(IEnumerable<IEnumerable<object>> data, char columnDelimiter = ';', char rowDelimiter = '\n') : this(columnDelimiter, rowDelimiter)
         {
             throw new NotImplementedException();
         }
