@@ -93,5 +93,13 @@ namespace CSVTest
             Assert.AreEqual(r2.Cells[2].ToString(), "I seem");
         }
 
+        [TestMethod]
+        public void TestItemAtNull()
+        {
+            r1 = new Row(1);
+            r1.Insert("somedata.data", 37);
+            Assert.AreEqual(null, r1.ItemAt(1));
+        }
+
     }
 }

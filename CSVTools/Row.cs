@@ -71,7 +71,7 @@ namespace CSVTools
         /// <param name="pos">Potion in row to retrieve from</param>
         /// <returns></returns>
         public object ItemAt(int pos){
-            return _cells.Find(cell => cell.Position == pos).GetData();
+            return _cells.Find(cell => cell.Position == pos)?.GetData();
         }
 
 
