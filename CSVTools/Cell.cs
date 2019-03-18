@@ -22,7 +22,7 @@ namespace CSVTools
             return _data;
         }
 
-        public void SetContent(object data)
+        public void SetData(object data)
         {
             _data = data;
         }

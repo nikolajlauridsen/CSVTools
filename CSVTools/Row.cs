@@ -60,7 +60,7 @@ namespace CSVTools
             try
             {
                 Cell targetCell = _row.Find(cell => cell.Position == x);
-                targetCell.SetContent(data);
+                targetCell.SetData(data);
             }
             catch (ArgumentNullException)
             {
