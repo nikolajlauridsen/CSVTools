@@ -67,6 +67,9 @@ namespace CSVTest
             r4 = new Row(5);
 
             Assert.AreEqual(r1.CompareTo(r3), 0);
+
+            Assert.AreEqual(r1.CompareTo(null), 1);
+            Assert.AreEqual(r1.CompareTo(r1), 0);
             Assert.AreEqual(r2.CompareTo(r1), 1);
             Assert.AreEqual(r4.CompareTo(r2), -1);
         }
