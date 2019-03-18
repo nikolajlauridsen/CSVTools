@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,12 @@ namespace CSVTools
         public Table(IEnumerable<IEnumerable<object>> data, char columnDelimiter = ';', char rowDelimiter = '\n') : this(columnDelimiter, rowDelimiter)
         {
             throw new NotImplementedException();
+        }
+
+        public object this[int x, int y]
+        {
+            get => ItemAt(x, y);
+            set => InsertItem(value, x, y);
         }
 
 
@@ -56,6 +64,12 @@ namespace CSVTools
             
             // Create new row
             _rows.Add(new Row(data, y));
+        }
+
+        public object ItemAt(int x, int y)
+        {
+            Row targetRow = _rows.Find(row => row.Position == y);
+            return targetRow?.ItemAt(x);
         }
     }
 }
