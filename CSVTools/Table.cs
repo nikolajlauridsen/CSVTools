@@ -19,6 +19,12 @@ namespace CSVTools
             ColumnDelimiter = columnDelimiter;
         }
 
+        public Table(IEnumerable<IEnumerable<object>> data, char rowDelimiter = ';', char columnDelimiter = '\n') : this(rowDelimiter, columnDelimiter)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public void InsertItem(object data, int x, int y)
         {
             Row targetRow;
