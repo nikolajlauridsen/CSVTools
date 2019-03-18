@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSVTools
 {
-    internal class Row
+    internal class Row : IComparable<Row>
     {
         /// <summary>
         /// The Y position of the row
@@ -21,10 +21,8 @@ namespace CSVTools
         /// <summary>
         /// A sorted copy of the cells (readonly)
         /// </summary>
-        public List<Cell> Cells
-        {
-            get
-            {
+        public List<Cell> Cells{
+            get{
                 List<Cell> returnList = new List<Cell>(_row);
                 returnList.Sort();
                 return returnList;
@@ -32,18 +30,15 @@ namespace CSVTools
         }
         private List<Cell> _row = new List<Cell>();
 
-        internal Row(int pos)
-        {
+        internal Row(int pos){
             Position = pos;
         }
 
-        internal Row(IEnumerable<object> data, int pos)
-        {
+        internal Row(IEnumerable<object> data, int pos){
             Position = pos;
 
             int i = 0;
-            foreach (object item in data)
-            {
+            foreach (object item in data){
                 Insert(item, i);
                 i++;
             }
@@ -55,17 +50,16 @@ namespace CSVTools
         /// </summary>
         /// <param name="data">Data to be inserted</param>
         /// <param name="x">The x position of the cell within the row</param>
-        public void Insert(object data, int x)
-        {
-            try
-            {
-                Cell targetCell = _row.Find(cell => cell.Position == x);
+        public void Insert(object data, int x){
+            Cell targetCell = _row.Find(cell => cell.Position == x);
+
+            if(targetCell != null){
                 targetCell.SetData(data);
             }
-            catch (ArgumentNullException)
-            {
-                Cells.Add(new Cell(data, x));
+            else {
+                _row.Add(new Cell(data, x));
             }
+
         }
 
         /// <summary>
@@ -73,19 +67,17 @@ namespace CSVTools
         /// </summary>
         /// <param name="pos">Potion in row to retrieve from</param>
         /// <returns></returns>
-        public object ItemAt(int pos)
-        {
-            try
-            {
-                return _row.Find(cell => cell.Position == pos).GetData();
-            }
-            catch (ArgumentNullException)
-            {
-                return null;
-            }
+        public object ItemAt(int pos){
+            return _row.Find(cell => cell.Position == pos).GetData();
         }
 
 
-
+        public int CompareTo(Row other){
+            // A huge thank you to ReSharper for being able to automatically generate these
+            // You make code worth living <3 
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return Position.CompareTo(other.Position);
+        }
     }
 }
