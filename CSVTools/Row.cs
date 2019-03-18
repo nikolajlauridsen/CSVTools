@@ -21,7 +21,7 @@ namespace CSVTools
         /// <summary>
         /// A sorted copy of the cells (readonly)
         /// </summary>
-        public List<Cell> Cells{
+        internal List<Cell> Cells{
             get{
                 List<Cell> returnList = new List<Cell>(_cells);
                 returnList.Sort();
@@ -31,13 +31,14 @@ namespace CSVTools
         private List<Cell> _cells = new List<Cell>();
 
         internal Row(int pos){
+            if (pos < 1) throw new ArgumentException("X must be greater than 0");
             Position = pos;
         }
 
         internal Row(IEnumerable<object> data, int pos){
             Position = pos;
 
-            int i = 0;
+            int i = 1;
             foreach (object item in data){
                 Insert(item, i);
                 i++;
@@ -50,7 +51,9 @@ namespace CSVTools
         /// </summary>
         /// <param name="data">Data to be inserted</param>
         /// <param name="x">The x position of the cell within the row</param>
-        public void Insert(object data, int x){
+        public void Insert(object data, int x) {
+            if (x < 1) throw new ArgumentException("X must be greater than 0");
+
             Cell targetCell = _cells.Find(cell => cell.Position == x);
 
             if(targetCell != null){
