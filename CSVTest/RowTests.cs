@@ -28,6 +28,23 @@ namespace CSVTest
         }
 
         [TestMethod]
+        public void TestConstructorWithNullData()
+        {
+            List<String> data = new List<string> { "Hello", "World", "!" , null, "Testing", null, "Empty cells"};
+            r1 = new Row(data, 1);
+            Assert.AreEqual("Hello", r1.ItemAt(1).ToString());
+            Assert.AreEqual("World", r1.ItemAt(2).ToString());
+            Assert.AreEqual("!", r1.ItemAt(3).ToString());
+            Assert.AreEqual(null, r1.ItemAt(4));
+            Assert.AreEqual("Testing", r1.ItemAt(5));
+            Assert.AreEqual(null, r1.ItemAt(6));
+            Assert.AreEqual("Empty cells", r1.ItemAt(7));
+
+            Assert.ThrowsException<NullReferenceException>(() => r1.ItemAt(4).ToString());
+
+        }
+
+        [TestMethod]
         public void TestWidth()
         {
             List<String> data = new List<string> { "I", "contain", "four", "items" };
