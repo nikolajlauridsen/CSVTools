@@ -20,12 +20,12 @@ namespace ExampeProject
             table[4, 3] = "4,3";
             table[5, 3] = "5,3";
             table[6, 3] = "6,3";
-            table[1, 4] = "1";
-            table[2, 4] = "2";
-            table[3, 4] = "3";
-            table[4, 4] = "4";
-            table[5, 4] = "5";
-            table[6, 4] = "6";
+            table[1, 6] = "1";
+            table[2, 6] = "2";
+            table[3, 6] = "3";
+            table[4, 6] = "4";
+            table[5, 6] = "5";
+            table[6, 6] = "6";
 
 
 

@@ -28,15 +28,25 @@ namespace CSVTools
 
         public string GetCSV(Table table)
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder tableBuilder = new StringBuilder();
             int[] size = table.Dimensions;
             int xCursor = 1;
             int yCursor = 1;
+            bool rowInserted = false;
 
             foreach (Row row in table.Rows)
             {
                 // Add empty rows
-                builder.Append(GenerateEmptyRows(size[0],row.Position - yCursor));
+                if (rowInserted == false)
+                {
+                    tableBuilder.Append(GenerateEmptyRow(size[0], row.Position - yCursor));
+                }
+                else
+                {
+                    // Remove 1 from the amount of rows to be inserted if we just added a row.
+                    tableBuilder.Append(GenerateEmptyRow(size[0], row.Position - yCursor-1));
+                    rowInserted = false;
+                }
                 yCursor = row.Position;
 
                 StringBuilder rowBuilder = new StringBuilder();
@@ -45,24 +55,28 @@ namespace CSVTools
                     // Add delimiters to "select" the cell
                     rowBuilder.Append(ColumnDelimiter.Repeat(cell.Position - xCursor));
                     // Add cell data
+                    if (cell.GetData() != null) rowInserted = true;
                     rowBuilder.Append(cell);
                     xCursor = cell.Position;
                 }
                 // Pad to dimensions
                 rowBuilder.Append(ColumnDelimiter.Repeat(size[0] - xCursor));
-                builder.Append(rowBuilder);
+                // Column finished, add row delim
+                rowBuilder.Append(RowDelimiter);
+                tableBuilder.Append(rowBuilder);
                 xCursor = 1;
             }
 
-            return builder.ToString();
+            return tableBuilder.ToString();
 
         }
 
-        private string GenerateEmptyRows(int width, int count)
+        private string GenerateEmptyRow(int width, int count)
         {
             if (count == 0) return string.Empty;
             StringBuilder rowBuilder = new StringBuilder();
-            rowBuilder.Append(ColumnDelimiter.Repeat(width));
+            // Remove one from width since the last column isn't delimited
+            rowBuilder.Append(ColumnDelimiter.Repeat(width-1));
             rowBuilder.Append(RowDelimiter);
             return  rowBuilder.ToString().Repeat(count);
         }
