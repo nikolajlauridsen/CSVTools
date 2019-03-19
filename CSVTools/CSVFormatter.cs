@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,7 +84,7 @@ namespace CSVTools
 
         public void SaveToFile(string path)
         {
-            throw new NotImplementedException();
+            File.WriteAllText(path, GetCSV(_targetTable));
         }
 
         public override string ToString()

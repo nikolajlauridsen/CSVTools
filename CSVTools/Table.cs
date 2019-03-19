@@ -131,10 +131,10 @@ namespace CSVTools
             return targetRow?.ItemAt(x);
         }
 
-        // TODO: use CSVFormatter for these last 2
+
         public void SaveToFile(string path)
         {
-            throw new NotImplementedException();
+            new CSVFormatter(this).SaveToFile(path);
         }
 
         public override string ToString()

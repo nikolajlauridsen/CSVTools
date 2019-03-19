@@ -12,25 +12,24 @@ namespace ExampeProject
     {
         static void Main(string[] args)
         {
+            Console.Write("Generating data.");
             Table table = new Table();
-            table[1, 1] = "1,1";
-            table[2, 1] = "2,1";
-            table[3, 1] = "3,1";
+            Random rnd = new Random();
 
-            table[4, 3] = "4,3";
-            table[5, 3] = "5,3";
-            table[6, 3] = "6,3";
-            table[1, 6] = "1";
-            table[2, 6] = "2";
-            table[3, 6] = "3";
-            table[4, 6] = "4";
-            table[5, 6] = "5";
-            table[6, 6] = "6";
+            for (int y = 1; y <= 1000; y+= 2)
+            {
+                for (int x = 1; x <= 1000; x++)
+                {
+                    table[x, y] = rnd.Next(1, 255);
+                }
+            }
+            Console.Write("..\n");
 
+            //
+            // Console.WriteLine(table.ToString());
 
-
-            Console.WriteLine(table.ToString());
-            Console.ReadKey();
+            Console.Write("Path: ");
+            table.SaveToFile(Console.ReadLine());
         }
     }
 }
