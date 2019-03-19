@@ -11,13 +11,15 @@ namespace CSVTools
     {
         internal static string Repeat(this string str, int count)
         {
-            if(count < 1) throw new ArgumentOutOfRangeException(nameof(count), "Count must be greater than 0");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Count must be positive");
+            if (count == 0) return string.Empty;
             return string.Join("", Enumerable.Repeat(str, count));
         }
 
         internal static string Repeat(this char c, int count)
         {
-            if (count < 1) throw new ArgumentOutOfRangeException(nameof(count), "Count must be greater than 0");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Count must be positive");
+            if (count == 0) return string.Empty;
             return new string(c, count);
         }
     }

@@ -27,6 +27,12 @@ namespace CSVTest
         }
 
         [TestMethod]
+        public void TestStringRepeatOnce()
+        {
+            Assert.AreEqual("a", "a".Repeat(1));
+        }
+
+        [TestMethod]
         public void TestNegativeCount()
         {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => "a".Repeat(-1));
@@ -42,6 +48,12 @@ namespace CSVTest
         public void TestCharNegativeCount()
         {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => 'a'.Repeat(-1));
+        }
+
+        [TestMethod]
+        public void TestCharRepeatOnce()
+        {
+            Assert.AreEqual("a", 'a'.Repeat(1));
         }
 
     }

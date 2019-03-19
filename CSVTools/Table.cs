@@ -139,7 +139,7 @@ namespace CSVTools
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return new CSVFormatter(this).ToString();
         }
     }
 }
