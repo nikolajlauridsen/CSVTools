@@ -56,7 +56,7 @@ namespace CSVTools
         /// <param name="rowDelimiter">Delimiter used to separate rows</param>
         public Table(IEnumerable<IEnumerable<object>> data, char columnDelimiter = ';', char rowDelimiter = '\n') : this(columnDelimiter, rowDelimiter)
         {
-            int i = 0;
+            int i = 1;
             foreach (IEnumerable<object> row in data)
             {
                 InsertRow(row, i);
