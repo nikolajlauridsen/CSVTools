@@ -105,17 +105,17 @@ namespace CSVTest
             string[] data = new[] {"some", "random", "data"};
             List<string> moreData = new List<string>(new [] {"second", "line", "of", "data"});
             t1.InsertRow(data, 1);
-            t1.InsertRow(moreData, 2);
+            t1.InsertRow(moreData, 4);
 
             Assert.AreEqual("some", t1[1,1]);
             Assert.AreEqual("random", t1[2, 1]);
             Assert.AreEqual("data", t1[3, 1]);
 
 
-            Assert.AreEqual("second", t1[1, 2]);
-            Assert.AreEqual("line", t1[2, 2]);
-            Assert.AreEqual("of", t1[3, 2]);
-            Assert.AreEqual("data", t1[4, 2]);
+            Assert.AreEqual("second", t1[1, 4]);
+            Assert.AreEqual("line", t1[2, 4]);
+            Assert.AreEqual("of", t1[3, 4]);
+            Assert.AreEqual("data", t1[4, 4]);
         }
 
         [TestMethod]
@@ -139,6 +139,23 @@ namespace CSVTest
             t1.InsertItem("banana", 20, 20);
             Assert.AreEqual(20, t1.Dimensions[0]);
             Assert.AreEqual(20, t1.Dimensions[1]);
+        }
+
+        [TestMethod]
+        public void TestInternalRowAccesor()
+        {
+            t1 = new Table();
+            string[] data = new[] { "some", "random", "data" };
+            List<string> moreData = new List<string>(new[] { "second", "line", "of", "data" });
+            t1.InsertRow(moreData, 8);
+            t1.InsertRow(data, 1);
+
+            List<Row> rows = t1.Rows;
+
+            Assert.AreEqual(2, rows.Count);
+            Assert.AreEqual(1, rows[0].Position);
+            Assert.AreEqual(8, rows[1].Position);
+
 
         }
     }

@@ -11,6 +11,17 @@ namespace CSVTools
     {
         public char RowDelimiter;
         public char ColumnDelimiter;
+
+        internal List<Row> Rows
+        {
+            get
+            {
+                List<Row> rows = new List<Row>(_rows);
+                rows.Sort();
+                return rows;
+            }
+        }
+
         private List<Row> _rows = new List<Row>();
 
         /// <summary>
