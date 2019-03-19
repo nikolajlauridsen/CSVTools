@@ -9,7 +9,7 @@ namespace CSVTest
     [TestClass]
     public class TableTest
     {
-        private Table t1;
+        private Table t1, t2;
 
         [TestMethod]
         public void ConstructWithData()
@@ -132,6 +132,15 @@ namespace CSVTest
             data.Add(row3);
             data.Add(row4);
             t1 = new Table(data);
+            t2 = new Table();
+             
+            t2[1, 1] = "test";
+            t2[2, 1] = "test";
+            t2[4, 4] = 4;
+
+            Assert.AreEqual(4, t2.Dimensions[0]);
+            Assert.AreEqual(4, t2.Dimensions[1]);
+
 
             Assert.AreEqual(6, t1.Dimensions[0]);
             Assert.AreEqual(4, t1.Dimensions[1]);
@@ -139,6 +148,46 @@ namespace CSVTest
             t1.InsertItem("banana", 20, 20);
             Assert.AreEqual(20, t1.Dimensions[0]);
             Assert.AreEqual(20, t1.Dimensions[1]);
+        }
+
+        [TestMethod]
+        public void TestEmptyDimensions()
+        {
+            t1 = new Table();
+
+            int[] dimensions = t1.Dimensions;
+
+            Assert.AreEqual(0, dimensions[0]);
+            Assert.AreEqual(0, dimensions[1]);
+
+        }
+
+        [TestMethod]
+        public void TestToObjectArray()
+        {
+            t1 = new Table();
+
+            t1[1, 1] = "test";
+            t1[2, 1] = "test";
+            t1[4, 4] = 4;
+
+            object[][] checkArray = new object[4][];
+            checkArray[0] = new object[4];
+            checkArray[1] = new object[4];
+            checkArray[2] = new object[4];
+            checkArray[3] = new object[4];
+
+            checkArray[0][0] = "test";
+            checkArray[1][0] = "test";
+            checkArray[3][3] = 4;
+
+            for (int y = 0; y < t1.Dimensions[1]; y++)
+            {
+                for (int x = 0; x < t1.Dimensions[0]; x++)
+                {
+                    Assert.AreEqual(checkArray[x][y], t1.ToArray()[x][y]);
+                }
+            }
         }
 
         [TestMethod]
@@ -155,8 +204,6 @@ namespace CSVTest
             Assert.AreEqual(2, rows.Count);
             Assert.AreEqual(1, rows[0].Position);
             Assert.AreEqual(8, rows[1].Position);
-
-
         }
     }
 }

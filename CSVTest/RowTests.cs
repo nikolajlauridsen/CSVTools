@@ -60,6 +60,13 @@ namespace CSVTest
         }
 
         [TestMethod]
+        public void TestEmptyWidth()
+        {
+            r1 = new Row(1);
+            Assert.AreEqual(0, r1.Width);
+        }
+
+        [TestMethod]
         public void TestColumnException()
         {
             r1 = new Row(1);

@@ -16,7 +16,14 @@ namespace CSVTools
         /// <summary>
         /// The width of the row
         /// </summary>
-        public int Width => Cells[Cells.Count - 1].Position;
+        public int Width
+        {
+            get
+            {
+                if (Cells.Count > 0) return Cells[Cells.Count - 1].Position;
+                return 0;
+            }
+        }
         
         /// <summary>
         /// A sorted copy of the cells (readonly)

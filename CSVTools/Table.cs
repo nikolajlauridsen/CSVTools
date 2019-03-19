@@ -12,6 +12,9 @@ namespace CSVTools
         public char RowDelimiter;
         public char ColumnDelimiter;
 
+        /// <summary>
+        /// A readonly list containing all rows sorted by position
+        /// </summary>
         internal List<Row> Rows
         {
             get
@@ -41,8 +44,16 @@ namespace CSVTools
                 dimensions[0] = width;
 
                 // Find height
-                _rows.Sort();
-                dimensions[1] = _rows[_rows.Count - 1].Position;
+                if (_rows.Count > 0)
+                {
+                    _rows.Sort();
+                    dimensions[1] = _rows[_rows.Count - 1].Position;
+                }
+                else
+                {
+                    dimensions[1] = 0;
+                }
+                
 
                 return dimensions;
             }
@@ -75,6 +86,28 @@ namespace CSVTools
             }
         }
 
+        public object[][] ToArray()
+        {
+            object[][] objects = new object[Dimensions[0]][];
+            for (int i = 0; i < Dimensions[0]; i++) objects[i] = new object[Dimensions[1]];
+
+            foreach (Row row in Rows)
+            {
+                foreach (Cell cell in row.Cells)
+                {
+                    objects[cell.Position - 1][row.Position - 1] = cell.GetData();
+                }
+            }
+
+            return objects;
+        }
+
+        /// <summary>
+        /// Get or set an item in table, overwrites existing data
+        /// </summary>
+        /// <param name="x">Column number, starts at 1</param>
+        /// <param name="y">Row number, starts at 1</param>
+        /// <returns></returns>
         public object this[int x, int y]
         {
             get => ItemAt(x, y);
@@ -86,8 +119,8 @@ namespace CSVTools
         /// Insert an object into the given position, rewrites existing data if any
         /// </summary>
         /// <param name="data">Object to be inserted</param>
-        /// <param name="x">Column number</param>
-        /// <param name="y">Row number</param>
+        /// <param name="x">Column number, starts at 1</param>
+        /// <param name="y">Row number, starts at 1</param>
         public void InsertItem(object data, int x, int y)
         {
             Row targetRow = _rows.Find(row => row.Position == y);
@@ -105,7 +138,7 @@ namespace CSVTools
         /// Insert a row into the table at the given position, rewrites existing data if any
         /// </summary>
         /// <param name="data">Objects to be added</param>
-        /// <param name="y">Row number</param>
+        /// <param name="y">Row number, starts at 1</param>
         public void InsertRow(IEnumerable<object> data, int y)
         {
             // Delete the y row if it already exists
@@ -122,8 +155,8 @@ namespace CSVTools
         /// <summary>
         /// Get the item at the given position.
         /// </summary>
-        /// <param name="x">Column number</param>
-        /// <param name="y">Row number</param>
+        /// <param name="x">Column number, starts at 1</param>
+        /// <param name="y">Row number, starts at 1</param>
         /// <returns></returns>
         public object ItemAt(int x, int y)
         {
@@ -132,11 +165,19 @@ namespace CSVTools
         }
 
 
+        /// <summary>
+        /// Save table to file as CSV
+        /// </summary>
+        /// <param name="path">Path to file</param>
         public void SaveToFile(string path)
         {
             new CSVFormatter(this).SaveToFile(path);
         }
 
+        /// <summary>
+        /// Get the table as a CSV formatted string
+        /// </summary>
+        /// <returns>CSV formatted string</returns>
         public override string ToString()
         {
             return new CSVFormatter(this).ToString();
