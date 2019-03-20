@@ -152,6 +152,17 @@ namespace CSVTools
             _rows.Add(new Row(data, y));
         }
 
+        public void InsertColumn(IEnumerable<object> data, int x) => InsertColumn(data, x, 1);
+
+        public void InsertColumn(IEnumerable<object> data, int x, int startY)
+        {
+            int i = 0;
+            foreach (object item in data) { 
+                this[x, startY + i] = item;
+                i++;
+            }
+        }
+
         /// <summary>
         /// Get the item at the given position.
         /// </summary>
