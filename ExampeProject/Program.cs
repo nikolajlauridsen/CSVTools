@@ -12,28 +12,31 @@ namespace ExampeProject
     {
         static void Main(string[] args)
         {
-            Console.Write("Generating data.");
+
             Table table = new Table();
             Random rnd = new Random();
-            List<string> data = new List<string>(new []{"1", "2", "3", "4", "5"});
 
-            table.InsertColumn(data, 1);
-            table.InsertColumn(data, 2, 2);
+            Console.Write("Table dimensions (width,height):");
+            string[] sizeString = Console.ReadLine().Split(',');
+            int width = int.Parse(sizeString[0]);
+            int height = int.Parse(sizeString[1]);
 
-            /*
-            for (int y = 1; y <= 10000; y++) {
-                for (int x = 1; x <= 10000; x++) {
+            Console.WriteLine("\nGenerating data...");
+            for (int y = 1; y <= height; y++) {
+                Console.Write($"Generating row {y} of {height}\r");
+                for (int x = 1; x <= width; x++) {
                     table[x, y] = rnd.Next(1, 255);
                 }
             }
-            */
-            Console.Write("..\n");
 
 
-            // Console.WriteLine(table.ToString());
-
-            Console.Write("Path: ");
-            table.SaveToFile(Console.ReadLine());
+            Console.Write("\nSave? (y/n)");
+            if (Console.ReadKey(true).Key == ConsoleKey.Y)
+            {
+                Console.Write("\nPath: ");
+                table.SaveToFile(Console.ReadLine());
+            }
+            
 
         }
     }

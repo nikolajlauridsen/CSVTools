@@ -82,9 +82,14 @@ namespace CSVTools
             return  rowBuilder.ToString().Repeat(count);
         }
 
+        public void SaveToFile(string path, Encoding encoding)
+        {
+            File.WriteAllText(path, GetCSV(_targetTable), encoding);
+        }
+
         public void SaveToFile(string path)
         {
-            File.WriteAllText(path, GetCSV(_targetTable));
+            SaveToFile(path, Encoding.UTF8);
         }
 
         public override string ToString()
