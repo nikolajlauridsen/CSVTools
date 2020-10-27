@@ -15,12 +15,6 @@ namespace CSVTools
 
         private Table _targetTable = null;
 
-        internal CSVFormatter(char columnDelimiter = ';', char rowDelimiter = '\n')
-        {
-            ColumnDelimiter = columnDelimiter;
-            RowDelimiter = rowDelimiter;
-        }
-
         internal CSVFormatter(Table targetTable)
         {
             ColumnDelimiter = targetTable.ColumnDelimiter;
