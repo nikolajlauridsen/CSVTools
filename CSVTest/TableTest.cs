@@ -205,5 +205,19 @@ namespace CSVTest
             Assert.AreEqual(1, rows[0].Position);
             Assert.AreEqual(8, rows[1].Position);
         }
+        
+        [TestMethod]
+        public void ToStringEvenTableWithSepAndDifferentDelim()
+        {
+            Table table = new Table();
+            table.ColumnDelimiter = ',';
+            table[1, 1] = 1;
+            table[2, 1] = 2;
+            table[1, 2] = 3;
+            table[2, 2] = 4;
+            
+            string expected = "sep=,\n1,2\n3,4\n";
+            Assert.AreEqual(expected, table.ToString());
+        }
     }
 }

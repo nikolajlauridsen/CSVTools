@@ -21,10 +21,10 @@ namespace CSVTools
             RowDelimiter = rowDelimiter;
         }
 
-        internal CSVFormatter(Table targetTable, char columnDelimiter = ';', char rowDelimiter = '\n')
+        internal CSVFormatter(Table targetTable)
         {
-            ColumnDelimiter = columnDelimiter;
-            RowDelimiter = rowDelimiter;
+            ColumnDelimiter = targetTable.ColumnDelimiter;
+            RowDelimiter = targetTable.RowDelimiter;
             _targetTable = targetTable;
         }
 
