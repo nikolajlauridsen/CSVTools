@@ -11,6 +11,7 @@ namespace CSVTools
     {
         public char RowDelimiter;
         public char ColumnDelimiter;
+        public bool SpecifyColumnDelimiterInFile = true;
 
         /// <summary>
         /// A readonly list containing all rows sorted by position

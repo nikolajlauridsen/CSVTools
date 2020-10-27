@@ -35,6 +35,11 @@ namespace CSVTools
             int yCursor = 1;
             bool rowInserted = false;
 
+            if (table.SpecifyColumnDelimiterInFile)
+            {
+                tableBuilder.Append($"sep={ColumnDelimiter}");
+            }
+
             foreach (Row row in table.Rows)
             {
                 // Add empty rows
