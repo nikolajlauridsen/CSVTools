@@ -37,7 +37,7 @@ namespace CSVTools
 
             if (table.SpecifyColumnDelimiterInFile)
             {
-                tableBuilder.Append($"sep={ColumnDelimiter}");
+                tableBuilder.AppendLine($"sep={ColumnDelimiter}");
             }
 
             foreach (Row row in table.Rows)
